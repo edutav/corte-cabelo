@@ -6,8 +6,14 @@ class UserController {
 	}
 
 	async store (req, res) {
+		let provider = req.body.provider;
+
+		if (provider === undefined) {
+			provider = false;
+		}
+
 		const { filename: avatar } = req.file;
-		await User.create({ ...req.body, avatar });
+		await User.create({ ...req.body, avatar, provider });
 
 		return res.redirect('/');
 	}
